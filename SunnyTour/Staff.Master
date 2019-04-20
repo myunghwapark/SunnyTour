@@ -1,0 +1,70 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Staff.master.cs" Inherits="SunnyTour.Staff" %>
+
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sunny Tour</title>
+	<script src="/js/jquery-3.3.1.js" ></script>
+	<link href="https://fonts.googleapis.com/css?family=David+Libre|Hind:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/css/style.css" />
+
+</head>
+<body>
+    <div class="wrap">
+    <form id="formMain" runat="server" method="post" enctype="multipart/form-data" asp-controller="UploadFiles" asp-action="Index">
+        <header class="cd-auto-hide-header" style="background-color:#7bb4e0;">
+            <div class="login"><asp:Button ID="btnLogin" runat="server" Text="Login"  class="btn btn-link btnLogin" OnClick="btnLogin_Click" CausesValidation="False" /></div>
+            <div class="login"><asp:Label ID="labelName" runat="server" Text=""></asp:Label>
+                <asp:Button ID="btnLogout" runat="server" Text="Logout" class="btn btn-link btnLogin" OnClick="btnLogout_Click" CausesValidation="False" />
+            </div>
+	        <div class="logo"><a href="/customers/home.aspx"><img src="/images/Sunny_logo.png" alt="Logo" style="width: 100px;"></a></div>
+
+	        <nav id="menu" class="cd-primary-nav">
+		        <a href="#cd-navigation" class="nav-trigger" style="right: 0; top: 48%; bottom: -13px">
+			        <span>
+				        <em aria-hidden="true"></em>
+				        Menu
+			        </span>
+		        </a> <!-- .nav-trigger -->
+
+		        <ul class="dropdown" id="cd-navigation">
+			        <li id="loginMenu"><a href="/staff/staff_login.aspx">Login</a></li>
+			        <li><a href="/staff/tour_management.aspx">Tour Management</a></li>
+			        <li><a href="/staff/tour_booking.aspx">Tour Booking</a></li>
+			        <li><a href="/staff/shuttle_booking.aspx">Shuttle Booking</a></li>
+			        <li><a href="/staff/user_management.aspx">User Management</a></li>
+			        <li><a href="/staff/promotion_list.aspx">Promotion</a></li>
+		        </ul>
+	        </nav> <!-- .cd-primary-nav -->
+        </header> <!-- .cd-auto-hide-header -->
+    
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+
+        <footer>
+	        <div class="footer">
+		        <div class="footer-text">
+			        @Alice & Sean Enterprise Co.,Ltd<br/>
+			        Address: 23 Emily Place, Auckland CBD, Auckland, New Zealand<br/>
+			        E-mail: mocaming@gmail.com
+		        </div>
+		        <div class="footer-icon">
+			        <div><a href="https://m.facebook.com/profile.php?id=100001870624086" target="_blank"><img class="f-sns-icon" src="/images/btn_facebook.png" /></a></div>
+			        <div><a href="https://www.instagram.com/cgh1113/" target="_blank"><img class="i-sns-icon" src="/images/btn_instagram.png" /></a></div>
+		        </div>
+		        <div class="clear"></div>
+	        </div>
+        </footer>    
+    </form>
+    
+<script src="/js/main.js"></script>
+  </div>
+</body>
+</html>

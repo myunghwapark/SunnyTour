@@ -1,0 +1,140 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Tour.master.cs" Inherits="SunnyTour.Tour" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Sunny Tour</title>
+	<script src="/js/jquery-3.3.1.js" ></script>
+	<link href="https://fonts.googleapis.com/css?family=David+Libre|Hind:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="/css/style.css" />
+    
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <style>
+        body {background-color:white;}
+
+    </style>
+</head>
+<body>
+    <div class="wrap">
+    <form id="formTour" runat="server" method="post">
+        <header class="cd-auto-hide-header">
+            <div class="login"><asp:Button ID="btnLogin" runat="server" Text="Login" class="btn btn-link" style="color:white;" OnClick="btnLogin_Click" CausesValidation="False" /></div>
+            <div class="login"><asp:Label ID="labelName" runat="server" Text=""></asp:Label>
+                <asp:Button ID="btnLogout" runat="server" Text="Logout" class="btn btn-link" OnClick="btnLogout_Click" style="color:white;" CausesValidation="False" />
+                <asp:Button ID="btnAdmin" runat="server" Text="Go to Management System" Visible="False" class="btn btn-sm btn-primary" OnClick="btnAdmin_Click" CausesValidation="False" />
+            </div>
+	        <div class="logo"><a href="../default.aspx"><img src="/images/Sunny_logo.png" alt="Logo" style="width: 100px;"></a></div>
+
+	        <nav id="menu" class="cd-primary-nav">
+		        <a href="#cd-navigation" class="nav-trigger">
+			        <span>
+				        <em aria-hidden="true"></em>
+				        Menu
+			        </span>
+		        </a> <!-- .nav-trigger -->
+
+		        <ul class="dropdown" id="cd-navigation">
+			        <li id="loginMenu"><a href="/customers/login.aspx">Login</a></li>
+			        <li><a href="/customers/about_us.aspx">About Us</a></li>
+			        <li><a href="/customers/nz_tour_list.aspx">New Zealand Tour</a></li>
+			        <li><a href="/customers/shuttle_service.aspx">Shuttle Service</a></li>
+			        <li><a href="/customers/my_travel.aspx">My Travel</a></li>
+			        <li><a href="/customers/contact_us.aspx">Contact Us</a></li>
+		        </ul>
+	        </nav> <!-- .cd-primary-nav -->
+            
+        </header> <!-- .cd-auto-hide-header -->
+
+        
+        <main class="cd-main-content" style="margin-bottom:100px;">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light" style="text-align:right;">
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="custom-control custom-checkbox" style="margin-right:30px;">
+                    <input type="checkbox" class="custom-control-input" id="promotionCheck">
+                    <label class="custom-control-label" for="promotionCheck">Promotion</label>
+                </div>
+                <div class="input-group mb-3" style="width:35%;margin-right:30px;margin-bottom:0 !important;">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Order by</label>
+                  </div>
+                  <select class="custom-select custom-select-sm" style="font-size:1rem;height:auto;" id="selectOrderBy">
+                    <option value="1" selected>Latest register</option>
+                    <option value="2">Price highest</option>
+                    <option value="3">Price lowest</option>
+                   </select>
+                </div>
+
+                <input id="txtSearch" class="form-control mr-sm-2" type="search" placeholder="Tour title" aria-label="Search" style="width:35%;">
+                <input type="button" value="Search" class="btn btn-outline-success my-2 my-sm-0" id="btnSearch">
+              </div>
+            </nav>
+
+            <div class="tourMenu left">
+                <div class="menu_title">New Zealand Tour</div>
+                <asp:DataList ID="DataList_TourMenu" runat="server" DataSourceID="SqlDataSource">
+                    <ItemTemplate>
+                        <div class="menu_content"><a href="/customers/nz_tour.aspx?tourSeqNo=<%#Eval("tourSeqNo") %>" ><%#Eval("tourTitle") %></a></div>
+                    </ItemTemplate>
+                </asp:DataList>
+                 <asp:SqlDataSource ID="SqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:dbSunnyTour %>" SelectCommand="SELECT tourSeqNo, tourTitle, tourRegion, imageUrl, tourStatus, createDate FROM [tbTour] where tourStatus='G001_002'"></asp:SqlDataSource>
+		
+            </div>
+            <div class="left" style="width:80%;">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+            </div>
+        </main>
+
+        <footer>
+	        <div class="footer">
+		        <div class="footer-text">
+			        @Alice & Sean Enterprise Co.,Ltd<br/>
+			        Address: 23 Emily Place, Auckland CBD, Auckland, New Zealand<br/>
+			        E-mail: mocaming@gmail.com
+		        </div>
+		        <div class="footer-icon">
+			        <div><a href="https://m.facebook.com/profile.php?id=100001870624086" target="_blank"><img class="f-sns-icon" src="/images/btn_facebook.png" /></a></div>
+			        <div><a href="https://www.instagram.com/cgh1113/" target="_blank"><img class="i-sns-icon" src="/images/btn_instagram.png" /></a></div>
+		        </div>
+		        <div class="clear"></div>
+	        </div>
+        </footer>    
+    </form>
+  </div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+
+        if ('<%=Request.QueryString["promotionYn"]%>' == 'Y') {
+            $('#promotionCheck').prop('checked', true);
+        }
+        if ('<%=Request.QueryString["searchText"]%>' != null && '<%=Request.QueryString["searchText"]%>' != "") {
+            $("#txtSearch").val('<%=Request.QueryString["searchText"]%>');
+        }
+        if ('<%=Request.QueryString["orderBy"]%>' != null && '<%=Request.QueryString["orderBy"]%>' != "") {
+            $("#selectOrderBy").val('<%=Request.QueryString["orderBy"]%>');
+        }
+        $("#btnSearch").on("click", function () {
+
+            var promotionYn = "", orderBy = "", searchText = "";
+            if ($("input:checkbox[id='promotionCheck']").is(":checked") == true) {
+                promotionYn = "Y";
+            }
+            orderBy = $("#selectOrderBy option:selected").val();
+            searchText = $("#txtSearch").val();
+            var search = "promotionYn=" + promotionYn + "&orderBy=" + orderBy + "&searchText=" + searchText;
+
+            window.location.href = "/customers/nz_tour_list.aspx?" + search;
+        
+        });
+    });
+</script>
